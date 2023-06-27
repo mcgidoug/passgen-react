@@ -5,6 +5,7 @@ const SpecialCharacters = () => {
     <div>
       <h3>special characters</h3>
       <button>yes</button>
+      <button>no</button>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import LowerCase from "./LowerCase";
 import UpperCase from "./UpperCase";
 import Numbers from "./Numbers";
@@ -7,11 +7,20 @@ import Length from "./Length";
 import Result from "./Result";
 
 const Main = () => {
+  const [passwordLength, setPasswordLength] = useState(8);
+
+  const handleLengthChange = (event) => {
+    const length = parseInt(event.target.value);
+    setPasswordLength(length);
+  };
+
+  const handleLowerCaseInput = () => {};
+
   return (
     <div>
       <h1>PassGen</h1>
       {/* component for length */}
-      <Length />
+      <Length handleLengthChange={handleLengthChange} />
       {/* component for lowercase */}
       <LowerCase />
       {/* component for uppercase */}

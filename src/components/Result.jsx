@@ -1,7 +1,12 @@
 import React from "react";
 
 const Result = () => {
-  return <div>Result</div>;
+  return (
+    <div>
+      <h1>Your Password:</h1>
+      <p></p>
+    </div>
+  );
 };
 
 export default Result;

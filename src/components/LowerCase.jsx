@@ -5,6 +5,7 @@ const LowerCase = () => {
     <div>
       <h3>lowercase</h3>
       <button>yes</button>
+      <button>no</button>
     </div>
   );
 };

@@ -5,6 +5,7 @@ const Numbers = () => {
     <div>
       <h3>numbers</h3>
       <button>yes</button>
+      <button>no</button>
     </div>
   );
 };
