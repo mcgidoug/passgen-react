@@ -1,36 +1,60 @@
-import React, { useState } from "react";
-import LowerCase from "./LowerCase";
-import UpperCase from "./UpperCase";
-import Numbers from "./Numbers";
-import SpecialCharacters from "./SpecialCharacters";
+import React, { useState, useCallback } from "react";
 import Length from "./Length";
 import Result from "./Result";
+import Toggle from "./Toggle";
 
 const Main = () => {
+  const [password, setPassword] = useState("");
   const [passwordLength, setPasswordLength] = useState(8);
+  const [isLowerCase, setIsLowerCase] = useState(false);
+  const [isUpperCase, setIsUpperCase] = useState(false);
+  const [isNumbers, setIsNumbers] = useState(false);
+  const [isSpecialCharacters, setIsSpecialCharacters] = useState(false);
 
   const handleLengthChange = (event) => {
     const length = parseInt(event.target.value);
     setPasswordLength(length);
   };
 
-  const handleLowerCaseInput = () => {};
+  const generatePassword = useCallback(() => {
+    const lowerCase = isLowerCase ? "abcdefghijklmnopqrstuvwxyz" : "";
+    const upperCase = isUpperCase ? "ABCDEFGHIJKLMNOPQRSTUVWXYZ" : "";
+    const numbers = isNumbers ? "0123456789" : "";
+    const specialCharacters = isSpecialCharacters
+      ? "!#$%&*@~^`()-_+[]{}|;:.<>?"
+      : "";
+    const characterList = lowerCase + upperCase + numbers + specialCharacters;
+    let password = "";
+
+    for (let i = 0; i < passwordLength; i++) {
+      password += characterList.charAt(
+        Math.floor(Math.random() * characterList.length)
+      );
+    }
+    console.log(password);
+
+    setPassword(password);
+  }, [
+    passwordLength,
+    isLowerCase,
+    isUpperCase,
+    isNumbers,
+    isSpecialCharacters,
+  ]);
 
   return (
     <div>
       <h1>PassGen</h1>
-      {/* component for length */}
       <Length handleLengthChange={handleLengthChange} />
-      {/* component for lowercase */}
-      <LowerCase />
-      {/* component for uppercase */}
-      <UpperCase />
-      {/* component for numbers */}
-      <Numbers />
-      {/* component for special characters */}
-      <SpecialCharacters />
-      {/* component for final result */}
+      <Toggle title="lowercase" setState={setIsLowerCase} />
+      <Toggle title="upercase" setState={setIsUpperCase} />
+      <Toggle title="numbers" setState={setIsNumbers} />
+      <Toggle title="special characters" setState={setIsSpecialCharacters} />
+      <div>---</div>
+      <button onClick={generatePassword}>Generate</button>
       <Result />
+
+      <div>{password}</div>
     </div>
   );
 };
